@@ -1,0 +1,4 @@
+saltinventory
+=============
+
+Salt inventory application
