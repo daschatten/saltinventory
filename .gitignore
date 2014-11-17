@@ -60,4 +60,4 @@ target/
 # application
 www/*.html
 www/hosts/*.html
-www/network/*.html
+www/networks/*.html
