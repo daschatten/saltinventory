@@ -52,3 +52,12 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# vim
+*.swp
+*.swo
+
+# application
+www/*.html
+www/hosts/*.html
+www/network/*.html
