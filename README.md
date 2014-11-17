@@ -17,8 +17,7 @@ and these pages are created:
 
 # Requirements
 
-* Salt
-This application must run on a salt master
+* Salt: This application must run on a salt master
 * python-netaddr
 
 # Instructions
