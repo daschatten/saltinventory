@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>{{ network.cidr }}</title>
+   <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.4/css/jquery.dataTables.css"> 
+    <link rel="stylesheet" type="text/css" href="../res/style.css"> 
+    <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" language="javascript" src="../res/jquery.number.min.js"></script>
+    <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" class="init">
+      $(document).ready(function() {
+        var table = $('#adresses').DataTable();
+      });
+    </script>
+ </head>
+  <body>
+   <div class="container">
+
+    <header class="header clearfix">
+      <div class="logo">Inventory | {{ network.cidr }}</div>
+
+      <nav class="menu_main">
+        <ul>
+          <li><a href="../hostlist.html">Hostlist</a></li>
+          <li><a href="../networklist.html">Networks</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    </div>
+    <article class="article clearfix">
+      <h2>Adresses</h2>
+     <table id="adresses" class="display">
+      <thead>
+        <tr>
+          <th>Address</th>
+          <th>Host</th>
+        </tr>
+        <tr>
+          <td>Address</th>
+          <td>Host</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for netdata in data %}
+        <tr>
+          <td>{{ netdata['address'] }}</td>
+          <td><a href="../hosts/{{ netdata['hostname'] }}.html">{{ netdata['hostname'] }}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+       <tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </tfoot>
+    </table>
+   </article>
+  </body>
+</html>

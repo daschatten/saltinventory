@@ -1,0 +1,137 @@
+<html>
+  <head>
+
+    <title>Host list</title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.4/css/jquery.dataTables.css"> 
+    <link rel="stylesheet" type="text/css" href="res/style.css"> 
+    <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" language="javascript" src="res/jquery.number.min.js"></script>
+    <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" class="init">
+
+$(document).ready(function() {
+
+// search box for each column (http://www.datatables.net/examples/api/multi_filter.html) - Part 1
+
+    $('#hostlist thead td').each( function () {
+        var title = $('#hostlist thead th').eq( $(this).index() ).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+
+  var table = $('#hostlist').DataTable({
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over this page
+            // mem
+            memTotal = api
+                .column( 2, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+             // cpu
+            cpuTotal = api
+                .column( 3, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+
+            // Update footer
+            $( api.column( 2 ).footer() ).html(
+                $.number(memTotal, 0, ",", ".")
+            );
+
+            $( api.column( 3 ).footer() ).html(
+                cpuTotal
+            );
+        }
+  });
+
+
+  // search box for each column (http://www.datatables.net/examples/api/multi_filter.html) - Part 2
+
+    // Apply the search
+    table.columns().eq( 0 ).each( function ( colIdx ) {
+        $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
+            table
+                .column( colIdx )
+                .search( this.value, true )
+                .draw();
+        } );
+    } );
+
+    $('td.number').number( true, 0, ",", "." );
+} );
+    </script>
+    
+  </head>
+  <body>
+
+  <div class="container">
+
+    <header class="header clearfix">
+      <div class="logo">Inventory | Host list</div>
+
+      <nav class="menu_main">
+        <ul>
+          <li class="active"><a href="hostlist.html">Hostlist</a></li>
+          <li><a href="networklist.html">Networks</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    </div>
+    <article class="article clearfix">
+
+    <h2>Hosts</h2>
+    
+
+    <table id="hostlist" class="display">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>OS</th>
+          <th>RAM (MB)</th>
+          <th># CPUs</th>
+        </tr>
+        <tr>
+          <td>Name</th>
+          <td>OS</th>
+          <td>RAM</th>
+          <td># CPUs</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for name, data in hostlist.iteritems() %}
+        <tr>
+          <td><a href = 'hosts/{{ name }}.html'>{{ name }}</a></td>
+          <td>{{ data.lsb_distrib_description }}</td>
+          <td class="right number">{{ data.mem_total }}</td>
+          <td class="right">{{ data.num_cpus }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+       <tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+          <th class="right"></th>
+          <th class="right"></th>
+        </tr>
+      </tfoot>
+    </table>
+  </article>
+
+  </body>
+</html>

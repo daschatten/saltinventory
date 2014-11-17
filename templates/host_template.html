@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>{{ id }}</title>
+   <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.4/css/jquery.dataTables.css"> 
+    <link rel="stylesheet" type="text/css" href="../res/style.css"> 
+    <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" language="javascript" src="../res/jquery.number.min.js"></script>
+    <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" class="init">
+    </script>
+ </head>
+  <body>
+   <div class="container">
+
+    <header class="header clearfix">
+      <div class="logo">Inventory | {{ id }}</div>
+
+      <nav class="menu_main">
+        <ul>
+          <li><a href="../hostlist.html">Hostlist</a></li>
+          <li><a href="../networklist.html">Networks</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    </div>
+    <article class="article clearfix">
+      <h2>System information</h2>
+        <h3>Generic</h3>
+          <ul>
+            <li>Operating System: {{ kernel }} ({{ kernelrelease }})</li>
+            <li>Distribution: {{ lsb_distrib_description }}</li>
+            <li>Machine type: {% if virtual != "physical" %} Virtual ({{ virtual }}) {% else %} Physical {% endif %}</li>
+            <li>Architecture: {{ osarch }}</li>
+            <li>Salt version: {{ saltversion }}</li>
+          </ul>
+        <h3>CPU</h3>
+          <ul>
+            <li>Numer of CPUs: {{ num_cpus }}</li>
+            <li>CPU architecture: {{ cpuarch }}</li>
+            <li>CPU model: {{ cpu_model }}</li>
+          </ul>
+        <h3>Memory</h3>
+          <ul>
+            <li>Total memory: {{ mem_total }}</li>
+          </ul>
+        <h3>Storage</h3>
+          <ul>
+            <li></li>
+            <li></li>
+          </ul>
+        <h3>Network</h3>
+          <ul>
+            <li></li>
+            <li></li>
+          </ul>
+    </article>
+  </body>
+</html>

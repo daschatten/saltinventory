@@ -1,0 +1,67 @@
+<html>
+  <head>
+
+    <title>Network list</title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.4/css/jquery.dataTables.css"> 
+    <link rel="stylesheet" type="text/css" href="res/style.css"> 
+    <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" language="javascript" src="res/jquery.number.min.js"></script>
+    <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" class="init">
+
+$(document).ready(function() {
+  var table = $('#networklist').DataTable();
+});
+    </script>
+    
+  </head>
+  <body>
+
+  <div class="container">
+
+    <header class="header clearfix">
+      <div class="logo">Inventory | Network list</div>
+
+      <nav class="menu_main">
+        <ul>
+          <li><a href="hostlist.html">Hostlist</a></li>
+          <li class="active"><a href="networklist.html">Networks</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    </div>
+    <article class="article clearfix">
+
+    <h2>Networks</h2>
+    
+    <table id="networklist" class="display">
+      <thead>
+        <tr>
+          <th>Network</th>
+          <th>Usage</th>
+        </tr>
+        <tr>
+          <td>Network</th>
+          <td>Usage</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for network, data in networklist.iteritems() %}
+        <tr>
+          <td><a href = 'networks/{{ network.cidr|replace('/', '_') }}.html'>{{ network.cidr }}</a></td>
+          <td>{{ data|len }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+       <tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </tfoot>
+    </table>
+  </article>
+
+  </body>
+</html>
